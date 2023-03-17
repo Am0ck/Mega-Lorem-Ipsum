@@ -27,6 +27,9 @@ async function deleteRec(id) {
   
     // Awaiting fetch which contains 
     // method, headers and content-type
+    // const respons = confirm("Are you sure you want to do that?");
+
+    // console.log(respons);
     console.log('DEL http://localhost:4567/dogs/'+id)
 //     const xhttp = new XMLHttpRequest();
 //   xhttp.onreadystatechange = function() {
@@ -57,6 +60,9 @@ async function deleteRec(id) {
 }
 
 async function loadTable(url, table){
+    //const respons = confirm("Are you sure you want to do that?");
+
+    //console.log(respons);
     const tableHead = table.querySelector("thead");
     const tableBody = table.querySelector("tbody");
     //const response = await fetch(url);
@@ -98,6 +104,7 @@ async function loadTable(url, table){
          console.log('found '+jso.length);
          for(r of jso)
          {
+            //let template = '<tr><td>'+r["name"]+'</td><td>'+r["breed"]+'</td><td><a class="btn btn-secondary" role="button">Edit</a></td><td><button onclick="deleteRec('+"'"+r["_id"]+"'"+')" class="btn btn-danger" type="submit">Delete</button></td></tr>';
             let template = '<tr><td>'+r["name"]+'</td><td>'+r["breed"]+'</td><td><a class="btn btn-secondary" role="button">Edit</a></td><td><button onclick="deleteRec('+"'"+r["_id"]+"'"+')" class="btn btn-danger" type="submit">Delete</button></td></tr>';
             console.log(r["name"]);
 
