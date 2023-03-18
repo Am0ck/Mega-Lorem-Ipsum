@@ -38,7 +38,7 @@ app.use(cors(corsOptions)) // Use this after the variable declaration
  app.get("/", async (req, res) => {
     const dgs = await Dog.find({});
     res.json(dgs)
-    console.log(dgs)
+    //console.log(dgs)
  //    res.json(dogs)
  })
 
@@ -52,7 +52,7 @@ app.use(cors(corsOptions)) // Use this after the variable declaration
 app.post("/dogs", async (req, res) => {
     // alert("SERVER GOT THE POST");
     res.send(JSON.stringify(req.body));
-     console.log('doges isnerting: '+req.body.name)
+     //console.log('doges isnerting: '+req.body.name)
      const dg = new Dog({
          name: req.body.name,
          breed: req.body.breed
@@ -67,7 +67,8 @@ app.put("/dogs/:id", async(req, res) => {
     const dg = await Dog.findByIdAndUpdate(req.params.id,req.body)
         console.log('doges updated:')
         const result = await dg.save()
-        res.json(dg)
+        //res.json(dg)
+        res.send("updated")
  })
  app.delete("/dogs/:id", async(req, res) => {
     console.log('del shoon')    
