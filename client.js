@@ -1,8 +1,38 @@
+function getState(){
+    var saved = localStorage.getItem('pop-up');
+    var saved_id = localStorage.getItem('del-id');
+    //alert(saved)
+    if(saved == "True")
+    {
+        //alert("ads")
+        confdeleteRec(saved_id);
+        var myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
+        myModal.show()
+    }
+}
+
+function togglePop(){
+    var saved = localStorage.getItem('pop-up');
+    if (saved = "True")
+    {
+        var myModalEl = document.getElementById('exampleModal');
+        var modal = bootstrap.Modal.getInstance(myModalEl)
+        modal.hide();
+    }
+    // confdeleteRec("1");
+    // var myModal = new bootstrap.Modal(document.getElementById('exampleModal'),
+    // {backdrop: false})
+    // myModal.toggle()
+}
 function onCancel () {
-    alert("cancel")
+    //alert("cancel")
+    localStorage.setItem("pop-up", "False");
+    togglePop()
+    //var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+    //myModal.hide()
   }
 async function createRec(){
-    alert("PSOT")
+    //alert("PSOT")
     console.log('POST http://localhost:4567/dogs/')
     console.log('name: '+document.getElementById("formInputName").value)
     
@@ -28,12 +58,19 @@ async function createRec(){
     return resData;
 }
 async function confdeleteRec(id){
+    
+    localStorage.setItem("pop-up", "True");
+    localStorage.setItem("del-id", id);
+    var saved = localStorage.getItem('pop-up');
+    console.log(saved)
     const confirm = document.getElementById('confirm')
-const cancel = document.getElementById('cancel')
+    const cancel = document.getElementById('cancel')
+    const close = document.getElementById('close')
 
 const promise = new Promise((resolve, reject) => {
   confirm.addEventListener('click', resolve)
   cancel.addEventListener('click', reject)
+  close.addEventListener('click', reject)
 })
     return await promise
     .then((ev) => {
@@ -78,11 +115,20 @@ async function deleteRec(id) {
 
     // Return response data 
     //loadTable("http://localhost:4567/", document.getElementById("tab"))
+    //alert(resData)
     return resData;
 }
 
 async function loadTable(url, table){
     console.log('loadTable')
+    // var pop = localStorage.getItem('pop-up');
+    // if(pop == "True")
+    // {
+//        confdeleteRec("1");
+        
+        // confdeleteRec("1")
+    // }
+    // alert(pop)
     //document.getElementById('exampleModal').style.aria-hidden = 'false';
     // var myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
     // myModal.show()
