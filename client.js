@@ -1,4 +1,8 @@
+function onCancel () {
+    alert("cancel")
+  }
 async function createRec(){
+    alert("PSOT")
     console.log('POST http://localhost:4567/dogs/')
     console.log('name: '+document.getElementById("formInputName").value)
     
@@ -17,19 +21,37 @@ async function createRec(){
     });
 
     // Awaiting for the resource to be deleted
-    const resData = 'resource deleted...';
-
+    const resData = 'resource added...';
+    alert(resData)
     // Return response data 
     //loadTable("http://localhost:4567/", document.getElementById("tab"))
     return resData;
+}
+async function confdeleteRec(id){
+    const confirm = document.getElementById('confirm')
+const cancel = document.getElementById('cancel')
+
+const promise = new Promise((resolve, reject) => {
+  confirm.addEventListener('click', resolve)
+  cancel.addEventListener('click', reject)
+})
+    return await promise
+    .then((ev) => {
+        deleteRec(id)
+      window.console.log(ev)
+    })
+    .catch(() => onCancel())
+    return ""
 }
 async function deleteRec(id) {
   
     // Awaiting fetch which contains 
     // method, headers and content-type
     // const respons = confirm("Are you sure you want to do that?");
+    
 
     // console.log(respons);
+    alert('DEL http://localhost:4567/dogs/'+id)
     console.log('DEL http://localhost:4567/dogs/'+id)
 //     const xhttp = new XMLHttpRequest();
 //   xhttp.onreadystatechange = function() {
@@ -60,25 +82,18 @@ async function deleteRec(id) {
 }
 
 async function loadTable(url, table){
-    //const respons = confirm("Are you sure you want to do that?");
-
-    //console.log(respons);
+    console.log('loadTable')
+    //document.getElementById('exampleModal').style.aria-hidden = 'false';
+    // var myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
+    // myModal.show()
+    //myModal.style.aria-hidden = 'false';
+    
+    
     const tableHead = table.querySelector("thead");
     const tableBody = table.querySelector("tbody");
-    //const response = await fetch(url);
-    //const { headers, rows } = await response.json();
 
-    //tableHead.innerHTML = "<tr></tr>";
     table.removeChild(table.getElementsByTagName("tbody")[0]); // Remove first instance of body
 
-    //table.tbody.innerHTML = "<tr></tr>";
-    // console.log(JSON.parse(response));
-    // console.log(rows);
-    // for (const headerText of headers){
-    //     const headerElement = document.createElement("th");
-    //     headerElement.textContent = headerText;
-    //     tableHead.querySelector("tr".appendChild(headerElement))
-    // }
 
     // for (const row of response){
     //     const rowElement = document.createElement("tr");
@@ -105,7 +120,7 @@ async function loadTable(url, table){
          for(r of jso)
          {
             //let template = '<tr><td>'+r["name"]+'</td><td>'+r["breed"]+'</td><td><a class="btn btn-secondary" role="button">Edit</a></td><td><button onclick="deleteRec('+"'"+r["_id"]+"'"+')" class="btn btn-danger" type="submit">Delete</button></td></tr>';
-            let template = '<tr><td>'+r["name"]+'</td><td>'+r["breed"]+'</td><td><a class="btn btn-secondary" role="button">Edit</a></td><td><button onclick="deleteRec('+"'"+r["_id"]+"'"+')" class="btn btn-danger" type="submit">Delete</button></td></tr>';
+            let template = '<tr><td>'+r["name"]+'</td><td>'+r["breed"]+'</td><td><a class="btn btn-secondary" role="button">Edit</a></td><td><button onclick="confdeleteRec('+"'"+r["_id"]+"'"+')" class="btn btn-danger" data-mdb-toggle="modal" data-mdb-target="#exampleModal" type="submit">Delete</button></td></tr>';
             console.log(r["name"]);
 
             //const rowElement = document.createElement("tr");

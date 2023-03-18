@@ -50,6 +50,7 @@ app.use(cors(corsOptions)) // Use this after the variable declaration
  })
 
 app.post("/dogs", async (req, res) => {
+    // alert("SERVER GOT THE POST");
     res.send(JSON.stringify(req.body));
      console.log('doges isnerting: '+req.body.name)
      const dg = new Dog({
