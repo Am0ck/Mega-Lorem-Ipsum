@@ -1,3 +1,10 @@
+window.onclick = function(event) {
+    var modal = document.getElementById('exampleModal');
+    if (event.target == modal) {
+        localStorage.setItem("pop-up", "False");
+    }
+    
+}
 function refresh() {    
     setTimeout(function () {
         location.reload()
@@ -128,6 +135,7 @@ async function createRec(){
     alert(resData)
     // Return response data 
     //loadTable("http://localhost:4567/", document.getElementById("tab"))
+    refresh()
     return resData;
 }
 async function confdeleteRec(id){
@@ -189,6 +197,8 @@ async function deleteRec(id) {
     // Return response data 
     //loadTable("http://localhost:4567/", document.getElementById("tab"))
     //alert(resData)
+    localStorage.setItem("pop-up", "False");
+    refresh()
     return resData;
 }
 
@@ -254,3 +264,9 @@ async function loadTable(url, table){
 }
 
 loadTable("http://localhost:4567/", document.getElementById("tab"))
+// var myModalEl = document.getElementById('exampleModal');
+// var modal = bootstrap.Modal.getInstance(myModalEl)
+// const exampleModal = document.getElementById('exampleModal');
+// exampleModal.addEventListener('.close', (e) => {
+//  alert("hideing")
+//  })
