@@ -29,12 +29,6 @@ const corsOptions ={
 app.use(cors(corsOptions)) // Use this after the variable declaration
  app.use(bodyParser.urlencoded({ extended: false }))
  app.use(bodyParser.json())
-// const port = 4567
-// // const dogs = [
-// //     {name:"Olly", breed: "Mix"},    
-// //     {name:"Molly", breed: "Beagle"}
-// // ]
-//app.use(express.json())
  app.get("/", async (req, res) => {
     const dgs = await Dog.find({});
     res.json(dgs)

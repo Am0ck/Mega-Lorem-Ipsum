@@ -48,35 +48,8 @@ async function editRec(){
     console.log(rec)
     console.log(JSON.stringify(rec))
 //     alert("asd")
-//     fetch("http://localhost:4567/dogs/"+id, {
-//     method: "PUT", // or 'PUT'
-//     body: JSON.stringify(rec),
-// })
-//   .then((response) => response.json())
-//   .then((data) => {
-//     alert("succes")
-//   })
-//   .catch((error) => {
-//     alert("error")
-
-//   });
-    // const response = fetch("http://localhost:4567/dogs/"+editId, {
-    //     method: 'PUT',
-    //     headers: {
-    //         'Content-type': 'application/json'
-    //     },
-    //     body: JSON.stringify(rec)
-    // });
-
-    // Awaiting for the resource to be deleted
-    //const resData = 'resource updated...';
-    //alert(resData)
-    // Return response data 
-    //loadTable("http://localhost:4567/", document.getElementById("tab"))
-    alert("rld")
+//    alert("rld")
     refresh();
-    //window.location.reload(true);
-//    return "false";
 }
 function getState(){
     var saved = localStorage.getItem('pop-up');
@@ -99,17 +72,11 @@ function togglePop(){
         var modal = bootstrap.Modal.getInstance(myModalEl)
         modal.hide();
     }
-    // confdeleteRec("1");
-    // var myModal = new bootstrap.Modal(document.getElementById('exampleModal'),
-    // {backdrop: false})
-    // myModal.toggle()
 }
 function onCancel () {
     //alert("cancel")
     localStorage.setItem("pop-up", "False");
     togglePop()
-    //var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-    //myModal.hide()
   }
 async function createRec(){
     //alert("PSOT")
@@ -129,12 +96,8 @@ async function createRec(){
         },
         body: JSON.stringify(rec)
     });
-
-    // Awaiting for the resource to be deleted
     const resData = 'resource added...';
-    alert(resData)
-    // Return response data 
-    //loadTable("http://localhost:4567/", document.getElementById("tab"))
+    //alert(resData)
     refresh()
     return resData;
 }
@@ -162,28 +125,8 @@ const promise = new Promise((resolve, reject) => {
     return ""
 }
 async function deleteRec(id) {
-  
-    // Awaiting fetch which contains 
-    // method, headers and content-type
-    // const respons = confirm("Are you sure you want to do that?");
-    
-
-    // console.log(respons);
     alert('DEL http://localhost:4567/dogs/'+id)
     console.log('DEL http://localhost:4567/dogs/'+id)
-//     const xhttp = new XMLHttpRequest();
-//   xhttp.onreadystatechange = function() {
-//     document.getElementById("tab").removeChild(document.getElementById("tab").getElementsByTagName("tbody")[0]);
-//   }
-//   xhttp.open("DELETE", "http://localhost:4567/dogs/"+id);
-//   xhttp.send();
-    // $.ajax({
-    //     type: "DELETE",
-    //     url: "http://localhost:4567/dogs/"+id,
-    //     data: data,
-    //     success: function () { },
-    //     error: function () { }
-    // });
      const response = fetch("http://localhost:4567/dogs/"+id, {
          method: 'DELETE',
          headers: {
