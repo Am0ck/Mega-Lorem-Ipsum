@@ -153,6 +153,7 @@ async function createRec(){
                 },
                 body: JSON.stringify(rec)
             });
+            refresh()
         }
         return;
     }
@@ -185,7 +186,7 @@ const promise = new Promise((resolve, reject) => {
     return ""
 }
 async function deleteRec(id) {
-    alert('DEL http://localhost:4567/dogs/'+id)
+    //alert('DEL http://localhost:4567/dogs/'+id)
     console.log('DEL http://localhost:4567/dogs/'+id)
      const response = fetch(base_url+"dogs/"+id, {
          method: 'DELETE',
