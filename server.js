@@ -5,7 +5,6 @@ require('dotenv').config()
 //const mongoDB = 'mongodb+srv://user:1zOUuRh5O3uvBXhn@cluster0.ojbpu2j.mongodb.net/?retryWrites=true&w=majority'
 const mongoDB = process.env.DB_CONN_STRING
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
-//pass: 1zOUuRh5O3uvBXhn
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'DB conn error'))
 db.once('open', () => console.log('Connected to DB'));
@@ -28,7 +27,7 @@ const corsOptions ={
    optionSuccessStatus:200,
 }
 
-app.use(cors(corsOptions)) // Use this after the variable declaration
+app.use(cors(corsOptions))
  app.use(bodyParser.urlencoded({ extended: false }))
  app.use(bodyParser.json())
  app.get("/", async (req, res) => {
@@ -71,7 +70,7 @@ app.put("/dogs/:id", async(req, res) => {
  app.delete("/dogs/:id", async(req, res) => {
     console.log('del shoon')    
     const dg = await Dog.findByIdAndDelete(req.params.id,req.body)
-        console.log('doges removed:')
+        console.log('dog removed:')
         // const result = await dg.save()
          res.send("deleted")
  })
