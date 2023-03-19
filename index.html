@@ -41,6 +41,8 @@
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Breed</th>
+                        <th scope="col">Weight(KG)</th>
+                        <th scope="col">Age</th>
                         <th scope="col">Edit</th>
                         <th scope="col">Delete</th>
                     </tr>
@@ -66,18 +68,32 @@
                         placeholder="Enter name" 
                         required>
                     </div>
-                        <div class="form-group">
-                            <label for="formInputBreed" class="form-label">
-                                Breed
-                            </label>
-                            <input type="text" class="form-control" 
-                                  id="formInputBreed" placeholder="Enter Breed">
-                        </div>
-                        <div class="form-group py-2">
-                            <button type="submit" onclick="createRec()" class="btn btn-primary">
-                                Submit
-                            </button>
-                        </div>
+                    <div class="form-group">
+                      <label for="formInputBreed" class="form-label">
+                      Breed
+                      </label>
+                      <input type="text" class="form-control" 
+                        id="formInputBreed" placeholder="Enter Breed">
+                    </div>
+                    <div class="form-group">
+                      <label for="formInputWeight" class="form-label">
+                      Weight
+                      </label>
+                      <input type="text" class="form-control" 
+                        id="formInputWeight" placeholder="Enter Weight">
+                    </div>
+                    <div class="form-group">
+                      <label for="formInputAge" class="form-label">
+                      Age
+                      </label>
+                      <input type="text" class="form-control" 
+                        id="formInputAge" placeholder="Enter Age">
+                    </div>
+                    <div class="form-group py-2">
+                      <button type="submit" onclick="createRec()" class="btn btn-primary">
+                      Submit
+                      </button>
+                    </div>
                   </form>
                 </div>
             </div>
@@ -99,6 +115,20 @@
                     <input type="text" class="form-control" 
                            id="formEditBreed" placeholder="Enter Breed">
                 </div>
+                <div class="form-group">
+                  <label for="formEditWeight" class="form-label">
+                      Weight
+                  </label>
+                  <input type="text" class="form-control" 
+                         id="formEditWeight" placeholder="Enter Weight">
+              </div>
+              <div class="form-group">
+                <label for="formEditAge" class="form-label">
+                    Age
+                </label>
+                <input type="text" class="form-control" 
+                       id="formEditAge" placeholder="Enter Age">
+            </div>
                 <div class="form-group py-2">
                     <button type="submit" onclick="editRec()" class="btn btn-primary">
                         Edit

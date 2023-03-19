@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
 //const mongoDB = 'mongodb+srv://user:1zOUuRh5O3uvBXhn@cluster0.ojbpu2j.mongodb.net/?retryWrites=true&w=majority'
-const mongoDB = 'mongodb://0.0.0.0:27017/dog_api'
+const mongoDB = 'mongodb://0.0.0.0:27017/dogs_api'
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 //pass: 1zOUuRh5O3uvBXhn
 const db = mongoose.connection
@@ -13,7 +13,9 @@ const app = express()
 const port = 4567
  const dogSchema = new mongoose.Schema({
      name: String,
-     breed: String
+     breed: String,
+     weight: Number,
+     age: Number 
  })
 
  const Dog = mongoose.model('Dog', dogSchema)
@@ -49,7 +51,9 @@ app.post("/dogs", async (req, res) => {
      //console.log('doges isnerting: '+req.body.name)
      const dg = new Dog({
          name: req.body.name,
-         breed: req.body.breed
+         breed: req.body.breed,
+         weight: req.body.weight,
+         age: req.body.age
      })
      console.log('doges isnerting: '+dg)
      console.log(req.body)

@@ -12,48 +12,79 @@ function refresh() {
 }
 function editFormRec(id){
     document.getElementById("editForm").style.visibility = 'visible';
+    localStorage.setItem("editForm", "True");
     fetch("http://localhost:4567/dogs/"+id)
      .then((response) => response.text())
      .then((body) => {
          console.log(JSON.parse(body));
          const jso = JSON.parse(body);
          console.log('found '+jso["_id"]);
-         
+         //alert(id)
+         localStorage.setItem("editId",id);
          document.getElementById("editId").value = jso["_id"];
          document.getElementById("formEditName").value = jso["name"];
-         document.getElementById("formEditBreed").value = jso["breed"]; 
+         document.getElementById("formEditBreed").value = jso["breed"];
+         document.getElementById("formEditWeight").value = jso["weight"];
+         document.getElementById("formEditAge").value = jso["age"]; 
      });
     
 }
 async function editRec(){
+    
+    let valid = true;
     console.log('PUT http://localhost:4567/dogs/')
     let id = document.getElementById("editId").value;
     //alert(id)
     const rec = { 
         name: document.getElementById("formEditName").value,
-        breed: document.getElementById("formEditBreed").value      
+        breed: document.getElementById("formEditBreed").value,
+        weight: document.getElementById("formEditWeight").value,
+        age: document.getElementById("formEditAge").value
     };
     let options = {    
         method: 'PUT',   
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(rec)  
     };
-    fetch("http://localhost:4567/dogs/"+id, options)
-    .then(response => response.json)
-    .then(data => {   
-        console.log("er")
-    })
-    .catch(error => console.log("er"));
-    
+    if(rec.name == "" || rec.breed == "" || rec.weight == "" || rec.age ==""){
+        alert("Please input all form data");
+    }
+    else{
+        if(isNaN(rec.weight))
+        {
+            valid = false;
+            alert("Please enter a numerical value for weight");    
+        }
+        if(isNaN(rec.age))
+        {
+            valid = false;
+            alert("Please enter a numerical value for Age");    
+        }
+        if(valid)
+        {
+            fetch("http://localhost:4567/dogs/"+id, options)
+            .then(response => response.json)
+            .then(data => {   
+                console.log("er")
+                localStorage.setItem("editForm", "False");
+                
+            })
+            .catch(error => console.log("er"));
+            refresh();
+        }
+    }
     console.log(rec)
     console.log(JSON.stringify(rec))
 //     alert("asd")
 //    alert("rld")
-    refresh();
+    
 }
 function getState(){
     var saved = localStorage.getItem('pop-up');
     var saved_id = localStorage.getItem('del-id');
+    var editId = localStorage.getItem('editId');
+    var saved_edit_form = localStorage.getItem('editForm');
+    // localStorage.setItem("editForm", "True");
     //alert(saved)
     if(saved == "True")
     {
@@ -61,6 +92,11 @@ function getState(){
         confdeleteRec(saved_id);
         var myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
         myModal.show()
+    }
+    if(saved_edit_form == "True"){
+        //document.getElementById("editForm").style.visibility = 'visible';
+        //alert(editId)
+        editFormRec(editId)
     }
 }
 
@@ -79,23 +115,45 @@ function onCancel () {
     togglePop()
   }
 async function createRec(){
+    let valid = true;
     //alert("PSOT")
     console.log('POST http://localhost:4567/dogs/')
     console.log('name: '+document.getElementById("formInputName").value)
     
     const rec = { 
         name: document.getElementById("formInputName").value,
-        breed: document.getElementById("formInputBreed").value 
+        breed: document.getElementById("formInputBreed").value,
+        weight: document.getElementById("formInputWeight").value,
+        age: document.getElementById("formInputAge").value 
         
     };
-    console.log('POST'+JSON.stringify(rec))
-    const response = fetch("http://localhost:4567/dogs/", {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(rec)
-    });
+    if(rec.name == "" || rec.breed == "" || rec.weight == "" || rec.age ==""){
+        alert("Please input all form data");
+    }
+    else{
+        if(isNaN(rec.weight))
+        {
+            valid = false;
+            alert("Please enter a numerical value for weight");    
+        }
+        if(isNaN(rec.age))
+        {
+            valid = false;
+            alert("Please enter a numerical value for Age");    
+        }
+        if(valid)
+        {
+            console.log('POST'+JSON.stringify(rec))
+            const response = fetch("http://localhost:4567/dogs/", {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(rec)
+            });
+        }
+        return;
+    }
     const resData = 'resource added...';
     //alert(resData)
     refresh()
@@ -133,13 +191,8 @@ async function deleteRec(id) {
              'Content-type': 'application/json'
          }
      });
-
-    // Awaiting for the resource to be deleted
     const resData = 'resource deleted...';
 
-    // Return response data 
-    //loadTable("http://localhost:4567/", document.getElementById("tab"))
-    //alert(resData)
     localStorage.setItem("pop-up", "False");
     refresh()
     return resData;
@@ -147,41 +200,11 @@ async function deleteRec(id) {
 
 async function loadTable(url, table){
     console.log('loadTable')
-    // var pop = localStorage.getItem('pop-up');
-    // if(pop == "True")
-    // {
-//        confdeleteRec("1");
-        
-        // confdeleteRec("1")
-    // }
-    // alert(pop)
-    //document.getElementById('exampleModal').style.aria-hidden = 'false';
-    // var myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
-    // myModal.show()
-    //myModal.style.aria-hidden = 'false';
-    
     
     const tableHead = table.querySelector("thead");
     const tableBody = table.querySelector("tbody");
 
     table.removeChild(table.getElementsByTagName("tbody")[0]); // Remove first instance of body
-
-
-    // for (const row of response){
-    //     const rowElement = document.createElement("tr");
-
-    //     for (const cellText of row){
-    //         const cellElement = document.createElement("td");
-
-    //         cellElement.textContent = cellText;
-    //         rowElement.appendChild(cellElement);
-    //     }
-    //     tableBody.appendChild(rowElement);
-    // }
-
-    //     rowElement.textContent = headerText;
-    //     tableHead.querySelector("tr".appendChild(headerElement))
-    // }
 
      fetch(url)
      .then((response) => response.text())
@@ -191,25 +214,11 @@ async function loadTable(url, table){
          console.log('found '+jso.length);
          for(r of jso)
          {
-            //let template = '<tr><td>'+r["name"]+'</td><td>'+r["breed"]+'</td><td><a class="btn btn-secondary" role="button">Edit</a></td><td><button onclick="deleteRec('+"'"+r["_id"]+"'"+')" class="btn btn-danger" type="submit">Delete</button></td></tr>';
-            let template = '<tr><td>'+r["name"]+'</td><td>'+r["breed"]+'</td><td><button onclick="editFormRec('+"'"+r["_id"]+"'"+')" class="btn btn-secondary" role="button">Edit</button></td><td><button onclick="confdeleteRec('+"'"+r["_id"]+"'"+')" class="btn btn-danger" data-mdb-toggle="modal" data-mdb-target="#exampleModal" type="submit">Delete</button></td></tr>';
+            let template = '<tr><td>'+r["name"]+'</td><td>'+r["breed"]+'</td>'+'<td>'+r["weight"]+'</td>'+'<td>'+r["age"]+'</td><td><button onclick="editFormRec('+"'"+r["_id"]+"'"+')" class="btn btn-secondary" role="button">Edit</button></td><td><button onclick="confdeleteRec('+"'"+r["_id"]+"'"+')" class="btn btn-danger" data-mdb-toggle="modal" data-mdb-target="#exampleModal" type="submit">Delete</button></td></tr>';
             console.log(r["name"]);
-
-            //const rowElement = document.createElement("tr");
-            //rowElement.appendChild("<td>"+r["name"]+"</td>")
-            //tableBody.appendChild("<tr><td>"+r["name"]+"</td><td>"+r["breed"]+"</td></tr>");
             table.innerHTML += template;
          }
      }); 
-    // const { headers, rows } = await response.json();
-    
-    // console.log(data);
 }
 
 loadTable("http://localhost:4567/", document.getElementById("tab"))
-// var myModalEl = document.getElementById('exampleModal');
-// var modal = bootstrap.Modal.getInstance(myModalEl)
-// const exampleModal = document.getElementById('exampleModal');
-// exampleModal.addEventListener('.close', (e) => {
-//  alert("hideing")
-//  })
