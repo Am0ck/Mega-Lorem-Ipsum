@@ -183,7 +183,7 @@ const promise = new Promise((resolve, reject) => {
     return ""
 }
 async function deleteRec(id) {
-    alert('DEL http://localhost:4567/dogs/'+id)
+    //alert('DEL http://localhost:4567/dogs/'+id)
     console.log('DEL http://localhost:4567/dogs/'+id)
      const response = fetch("http://localhost:4567/dogs/"+id, {
          method: 'DELETE',

@@ -1,0 +1,19 @@
+[{
+  "_id": {
+    "$oid": "6416fb5b087149e2785fe1fe"
+  },
+  "name": "Olly",
+  "breed": "Labrador",
+  "weight": 32,
+  "age": 5,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64170d19e3b7d960a29a5cb1"
+  },
+  "name": "Sam",
+  "breed": "Beagle",
+  "weight": 10,
+  "age": 3,
+  "__v": 0
+}]
