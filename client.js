@@ -1,3 +1,5 @@
+var base_url="http://localhost:4567/";
+
 window.onclick = function(event) {
     var modal = document.getElementById('exampleModal');
     if (event.target == modal) {
@@ -13,7 +15,7 @@ function refresh() {
 function editFormRec(id){
     document.getElementById("editForm").style.visibility = 'visible';
     localStorage.setItem("editForm", "True");
-    fetch("http://localhost:4567/dogs/"+id)
+    fetch(base_url+"dogs/"+id)
      .then((response) => response.text())
      .then((body) => {
          console.log(JSON.parse(body));
@@ -62,7 +64,7 @@ async function editRec(){
         }
         if(valid)
         {
-            fetch("http://localhost:4567/dogs/"+id, options)
+            fetch(base_url+"dogs/"+id, options)
             .then(response => response.json)
             .then(data => {   
                 console.log("er")
@@ -144,7 +146,7 @@ async function createRec(){
         if(valid)
         {
             console.log('POST'+JSON.stringify(rec))
-            const response = fetch("http://localhost:4567/dogs/", {
+            const response = fetch(base_url+"dogs/", {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
@@ -183,9 +185,9 @@ const promise = new Promise((resolve, reject) => {
     return ""
 }
 async function deleteRec(id) {
-    //alert('DEL http://localhost:4567/dogs/'+id)
+    alert('DEL http://localhost:4567/dogs/'+id)
     console.log('DEL http://localhost:4567/dogs/'+id)
-     const response = fetch("http://localhost:4567/dogs/"+id, {
+     const response = fetch(base_url+"dogs/"+id, {
          method: 'DELETE',
          headers: {
              'Content-type': 'application/json'
@@ -221,4 +223,4 @@ async function loadTable(url, table){
      }); 
 }
 
-loadTable("http://localhost:4567/", document.getElementById("tab"))
+loadTable(base_url, document.getElementById("tab"))

@@ -1,9 +1,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+require('dotenv').config()
 
 //const mongoDB = 'mongodb+srv://user:1zOUuRh5O3uvBXhn@cluster0.ojbpu2j.mongodb.net/?retryWrites=true&w=majority'
-const mongoDB = 'mongodb://0.0.0.0:27017/dogs_api'
+const mongoDB = process.env.PORT
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 //pass: 1zOUuRh5O3uvBXhn
 const db = mongoose.connection
