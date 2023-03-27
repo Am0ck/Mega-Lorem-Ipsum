@@ -12,4 +12,4 @@ Prerequisites: VS Code and Node JS(v19.7.0 was used for development) installed a
 The steps documented above allowed successful migration of the solution such that all functionalities worked on a new pc when tested on chrome as 
 a browser although results should be the same for any other browser.
 
-The steps above assume that the default db connection string is used along with port 4567, should these need to be configured they can be changegd in the .env file.
+The steps above assume that the default db connection string is used along with port 4567, should these need to be configured they can be changed in the .env file.
